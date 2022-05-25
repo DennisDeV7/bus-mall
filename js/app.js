@@ -27,26 +27,75 @@ function Product(name, fileExtension = 'jpg'){
   allProducts.push(this);
 }
 
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep', 'png');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-can');
-new Product('wine-glass');
+// ********** LOCAL STORAGE PART 2 **********
 
+// STEP 3: GET it out of local storage
+let retrievedProducts = localStorage.getItem('products');
+
+// STEP 4:  Parse Data for our code to reuse
+let parsedProducts = JSON.parse(retrievedProducts);
+
+// ********** Easy Way **********
+if(retrievedProducts){
+  allProducts = parsedProducts;
+}else {
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep', 'png');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('water-can');
+  new Product('wine-glass');
+}
+
+// ********** running it back through our constructor
+// if(retrievedProducts){
+//   for(let i = 0; i < parsedProducts.length; i++){
+//     if(parsedProducts[i].name === 'sweep'){
+//       let reconstructedSweep = new Product('sweep', 'png');
+//       reconstructedSweep.views = parsedProducts[i].views;
+//       reconstructedSweep.votes = parsedProducts[i].votes;
+//     } else{
+//       let reconstructedProduct = new Product(parsedProducts[i].name);
+//       reconstructedProduct.views = parsedProducts[i].views;
+//       reconstructedProduct.votes = parsedProducts[i].votes;
+//     }
+//   }
+// } else {
+//   new Product('banana');
+//   new Product('bathroom');
+//   new Product('boots');
+//   new Product('breakfast');
+//   new Product('bubblegum');
+//   new Product('chair');
+//   new Product('cthulhu');
+//   new Product('dog-duck');
+//   new Product('dragon');
+//   new Product('pen');
+//   new Product('pet-sweep');
+//   new Product('scissors');
+//   new Product('shark');
+//   new Product('sweep', 'png');
+//   new Product('tauntaun');
+//   new Product('unicorn');
+//   new Product('water-can');
+//   new Product('wine-glass');
+// }
+
+
+console.log('1st products>> ', allProducts);
 
 // *********** HELPER FUNCTIONS/EXECUTABLE CODE ******
 function getRandomIndex(){
@@ -225,6 +274,17 @@ function handleClick(event) {
 
   if(voteCount === 0){
     imgContainer.removeEventListener('click', handleClick);
+
+    // ********** LOCAL STORAGE **********
+
+    // STEP 1: Stringify Data
+    let stringifiedProducts = JSON.stringify(allProducts);
+    console.log(stringifiedProducts);
+
+    // STEP 2: ADD to local storage
+    localStorage.setItem('products', stringifiedProducts);
+
+    // STEP 3: 
   }
 }
 
