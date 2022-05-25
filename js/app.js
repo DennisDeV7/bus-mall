@@ -1,12 +1,8 @@
 'use strict';
 
 // ********** GLOBAL VARIABLES **********
-let voteCount = 10;
+let voteCount = 25;
 let allProducts = [];
-
-let holyNumbersOne = [];
-let holyNumbersTwo = [];
-let holyNumbersThree = [];
 
 
 // ********** DOM VARIABLES **********
@@ -57,34 +53,22 @@ function getRandomIndex(){
   return Math.floor(Math.random()*allProducts.length);
 }
 
+let indexArray = [];
+
 function renderImgs(){
 
-  let prodOneIndex = getRandomIndex();
-  let prodTwoIndex = getRandomIndex();
-  let prodThreeIndex = getRandomIndex();
-
-  // for(let i = 0; i < holyNumbersOne.length; i++){
-  //   if(holyNumbersOne[i] === holyNumbersOne[i-1]){
-  //     prodOneIndex = getRandomIndex();
-  //   }
-  // }
-
-  // validation to make sure the nums are unique
-  // use a container and
-
-  while(prodOneIndex === prodTwoIndex ||
-  prodOneIndex === prodThreeIndex || prodTwoIndex === prodThreeIndex){
-    prodOneIndex = getRandomIndex();
-    prodTwoIndex = getRandomIndex();
-    prodThreeIndex = getRandomIndex();
+  while(indexArray.length < 6){
+    let randomNum = getRandomIndex();
+    if(!indexArray.includes(randomNum)){
+      indexArray.push(randomNum);
+    }
   }
 
-  holyNumbersOne.push(prodOneIndex);
-  holyNumbersTwo.push(prodTwoIndex);
-  holyNumbersThree.push(prodThreeIndex);
+  let prodOneIndex = indexArray.shift();
+  let prodTwoIndex = indexArray.shift();
+  let prodThreeIndex = indexArray.shift();
 
-  // console.log(holyNumbersOne);
-
+  console.log(`${prodOneIndex}, ${prodTwoIndex}, ${prodThreeIndex}`);
 
   imgOne.src = allProducts[prodOneIndex].photo;
   imgOne.alt = allProducts[prodOneIndex].name;
@@ -262,9 +246,6 @@ function handleShowResults(){
 // ********** EVENT LISTENERS **********
 
 imgContainer.addEventListener('click', handleClick);
-holyNumbersOne = [];
-holyNumbersTwo = [];
-holyNumbersThree = [];
 showResultsBtn.addEventListener('click', handleShowResults);
 
 
